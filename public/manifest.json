@@ -1,0 +1,17 @@
+{
+  "name": "Focus",
+  "short_name": "Focus",
+  "description": "Your personalized writing and research command center.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#a78bfa",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
