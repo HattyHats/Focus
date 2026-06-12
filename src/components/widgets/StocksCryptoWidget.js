@@ -40,12 +40,28 @@ export default function StocksCryptoWidget({ id, onRemove , workspaces = [], onM
         if (!res.ok) throw new Error('Failed to load markets');
         const data = await res.json();
         
-        // Sort assets to match the order in trackedCoins
         const sortedAssets = [];
+        const missingCoins = [];
+
         trackedCoins.forEach(coinId => {
           const found = data.items.find(item => item.id === coinId);
-          if (found) sortedAssets.push(found);
+          if (found) {
+            sortedAssets.push(found);
+          } else {
+            missingCoins.push(coinId);
+          }
         });
+
+        // If a user typed an invalid coin (e.g. "btc" instead of "bitcoin"), remove it and warn
+        if (missingCoins.length > 0) {
+          setError(`Could not find: ${missingCoins.join(', ')}. Please use full coin names (e.g. 'bitcoin', 'dogecoin').`);
+          const validCoins = trackedCoins.filter(c => !missingCoins.includes(c));
+          setTrackedCoins(validCoins);
+          localStorage.setItem(`focus_crypto_coins_${id}`, JSON.stringify(validCoins));
+          setTimeout(() => setError(null), 5000);
+        } else {
+          setError(null);
+        }
 
         setAssets(sortedAssets);
       } catch (err) {

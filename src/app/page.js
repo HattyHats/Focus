@@ -106,15 +106,6 @@ export default function Home() {
     const widgetDef = WIDGET_TYPES[typeKey];
     const newId = `${typeKey.toLowerCase()}-${Date.now()}`;
     const newWidget = { i: newId, type: typeKey };
-    
-    // Only Spotify is global now
-    if (typeKey === 'SPOTIFY') {
-      const newGlobals = [...globalWidgets, newWidget];
-      setGlobalWidgets(newGlobals);
-      localStorage.setItem('focus_dashboard_global_widgets', JSON.stringify(newGlobals));
-      setIsModalOpen(false);
-      return;
-    }
 
     const newLayoutItem = { i: newId, x: 0, y: 0, w: widgetDef.defaultW, h: widgetDef.defaultH };
     
@@ -262,13 +253,13 @@ export default function Home() {
     <>
       {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       
-      <main style={{ padding: '2rem', display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
+      <main style={{ padding: '1rem', display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0, position: 'relative' }}>
           <div>
-            <h1 style={{ fontSize: '2.5rem', margin: 0, background: 'linear-gradient(to right, #60a5fa, var(--accent-color, #a78bfa))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <h1 style={{ fontSize: '1.8rem', margin: 0, background: 'linear-gradient(to right, #60a5fa, var(--accent-color, #a78bfa))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '2px', textTransform: 'uppercase' }}>
               Focus
             </h1>
-            <p style={{ margin: 0, fontSize: '1.1rem', marginTop: '0.25rem', color: 'var(--text-secondary)' }}>Created by HattyHats</p>
+            <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Created by HattyHats</p>
           </div>
           
           {/* Global Widgets Area */}
